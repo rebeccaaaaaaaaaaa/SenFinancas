@@ -10,6 +10,8 @@
   uso do 'use client'. Depois delongas buscas inclusive no rpositório do própio Nextjs tive como solução
   setar uma versão anterior a qual eu estava usando e o erro foi corrigido.
 
+- A inicializalçao do local storage como vazia foi um problema na hora de buildar para isso resolvi da seguinte maneira: Desacoplando o acesso ao local storage,  ao invés de acessar o localStorage em todos os lugares do seu aplicativo, você o acessa apenas uma vez em um lugar específico (antes de mostrar os dados aos usuários). Isso garante que você não tenha problemas quando estiver construindo (fazendo o build) do seu aplicativo, pois o localStorage não existe nesse momento. Em vez disso, você só o acessa quando está pronto para mostrar os dados aos usuários. Tinha também a opção de fazer a verificação if (typeof window !== 'undefined') mas não consegui implementar de forma efetiva.
+
 # Tecnologias Utilizadas
 
 - NextJS 13.x.x
