@@ -10,6 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
+      <link rel="icon" href="https://sensedata.com.br/wp-content/uploads/2022/07/fav.svg" sizes="32x32" />
       <body>{children}</body>
     </html>
   );
