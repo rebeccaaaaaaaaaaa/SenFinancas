@@ -7,9 +7,9 @@ import { createContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 interface GlobalContextData {
-  transactions: any;
-  addTransaction: (newTransaction: any) => void;
-  removeTransaction: (id: any) => void;
+  transactions: Transaction[];
+  addTransaction: (newTransaction: Transaction) => void;
+  removeTransaction: (id: string) => void;
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
   handleOpenModal: () => void;
@@ -29,6 +29,15 @@ interface GlobalContextData {
   total: number;
 }
 
+interface Transaction {
+  id: string;
+  title: string;
+  amount: string;
+  type: string;
+  category: string;
+  date: string;
+}
+
 interface GlobalProviderProps {
   children: React.ReactNode;
 }
@@ -38,33 +47,27 @@ export const GlobalContext = createContext({} as GlobalContextData);
 
 // create a provider for share data between components
 export function GlobalProvider({ children }: GlobalProviderProps) {
-  const [transactions, setTransactions] = useState([
-    {
-      id: 1,
-      title: "Desenvolvimento de website",
-      type: "deposit",
-      category: "Venda",
-      amount: 5000,
-      date: "13/04/2021 às 14:30",
-    },
-    {
-      id: 2,
-      title: "Hamburgueria Pizzy",
-      type: "withdraw",
-      category: "Alimentação",
-      amount: 59,
-      date: "10/04/2021 às 14:30",
-    },
-  ]);
+  const storedTransactions = localStorage.getItem("transactions");
+  const initialTransactions: Transaction[] = storedTransactions
+    ? JSON.parse(storedTransactions)
+    : [];
 
-  function addTransaction(newTransaction: any) {
-    setTransactions([...transactions, newTransaction]);
+  const [transactions, setTransactions] = useState<Transaction[]>(
+    initialTransactions
+  );
+
+  function addTransaction(newTransaction: Transaction) {
+    const updatedTransactions = [...transactions, newTransaction];
+    setTransactions(updatedTransactions);
+    localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
   }
 
-  function removeTransaction(id: any) {
-    setTransactions(
-      transactions.filter((transaction: { id: any }) => transaction.id !== id)
+  function removeTransaction(id: string) {
+    const updatedTransactions = transactions.filter(
+      (transaction) => transaction.id !== id
     );
+    setTransactions(updatedTransactions);
+    localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
   }
 
   // modal
