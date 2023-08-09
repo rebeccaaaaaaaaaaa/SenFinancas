@@ -1,0 +1,13 @@
+@import "../../styles/colors";
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: -8rem;
+
+  @media screen and (max-width: 993px) {
+    grid-template-columns: 1fr;
+    margin-top: -5rem;
+  }
+}

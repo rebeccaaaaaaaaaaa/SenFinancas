@@ -1,0 +1,70 @@
+@import "./colors.scss";
+
+// import roboto font
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f1f5f8;
+  font-family: "Roboto", sans-serif;
+}
+
+main {
+  max-width: 1120px;
+  margin: 0px auto;
+  padding: 2.5rem 5rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.table thead th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+@media only screen and (max-width: 600px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .table tbody td:before {
+    content: attr(data-label);
+    display: inline-block;
+    font-weight: bold;
+    width: 8rem;
+    margin-right: 0.5rem;
+  }
+
+  .table tbody td:last-child {
+    border-bottom: 0;
+  }
+}

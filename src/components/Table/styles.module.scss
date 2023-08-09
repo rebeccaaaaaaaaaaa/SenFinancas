@@ -1,0 +1,57 @@
+@import "../../styles/colors.scss";
+
+.container {
+  margin-top: 4rem;
+
+  @media screen and (max-width: 993px) {
+    overflow-x: scroll;
+  }
+}
+
+.table {
+  width: 100%;
+  border-spacing: 0px 0.5rem;
+  // border-collapse: collapse;
+
+  @media screen and (max-width: 993px) {
+    width: 36rem;
+  }
+}
+
+.pl_16 {
+  padding-left: 1rem;
+}
+
+.trHead {
+  color: #b9b9b9;
+  font-weight: 400;
+  padding: 1rem 2rem;
+  text-align: left;
+  line-height: 1.5rem;
+}
+
+.trBody {
+  border: 0;
+  background: $white;
+  height: 63px;
+  border-radius: 8px;
+}
+
+.deleteButton {
+  cursor: pointer;
+}
+
+.value {
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.deposit {
+  @extend .value;
+  color: $green-300;
+}
+
+.withdraw {
+  @extend .value;
+  color: $red-pink-400;
+}

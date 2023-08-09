@@ -1,0 +1,175 @@
+@import "../../../src/styles/colors.scss";
+
+// create a bg color for a container class
+.container {
+  background-color: transparent;
+  box-shadow: 0px 3px 6px #00000016;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0px auto;
+  padding: 2rem 1rem 12rem;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+
+  // media querie for mobile
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 2rem 1rem 6rem;
+    gap: 2rem;
+  }
+}
+
+.button {
+  font-size: 1rem;
+  color: $white;
+  opacity: 0.8;
+  border: 0px;
+  padding: 0px 2rem;
+  height: 3rem;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  background-color: $main-500;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+// styles for modal
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  background-color: $white;
+  width: 100%;
+  max-width: 576px;
+  padding: 3rem 2rem;
+  position: relative;
+  border-radius: 0.25rem;
+}
+
+.modalContent header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $white;
+  margin-bottom: 2rem;
+}
+
+.close {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  border: 0px;
+  background: transparent;
+  transition: filter 0.2s ease 0s;
+
+  &:hover {
+    filter: brightness(0.8);
+  }
+
+  img {
+    cursor: pointer;
+  }
+}
+
+// content modal
+
+.contentTitle {
+  margin-bottom: 2rem;
+  font: normal normal bold 28px/37px Roboto;
+  letter-spacing: 0.73px;
+  color: #4e5555;
+}
+
+.form input {
+  width: 100%;
+  padding: 0px 1.5rem;
+  font-weight: 400;
+  font-size: 1rem;
+  height: 67px;
+  background: #f7f7f7 0% 0% no-repeat padding-box;
+  border: 1px solid #d9d9d9;
+  border-radius: 7px;
+  opacity: 1;
+
+  ::-moz-focus-inner {
+    border: 0;
+  }
+
+  + input {
+    margin-top: 1rem;
+  }
+
+  ::placeholder {
+    font: normal normal normal 20px/26px Roboto;
+    letter-spacing: 0.52px;
+    color: #555555;
+    opacity: 0.45;
+  }
+}
+
+.type {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  button {
+    height: 4rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgb(215, 215, 215);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease 0s;
+    gap: 1rem;
+  }
+}
+
+.buttonRegister {
+  width: 100%;
+  padding: 0px 1.5rem;
+  color: rgb(255, 255, 255);
+  border-radius: 0.25rem;
+  border: 0px;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  transition: filter 0.2s ease 0s;
+  height: 66px;
+  background: #401a9b 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+  opacity: 1;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.active {
+  background: #401a9b 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+  opacity: 1;
+  color: #fff;
+}
