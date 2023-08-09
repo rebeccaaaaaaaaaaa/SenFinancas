@@ -26,4 +26,4 @@
 
 - Optei por uma versão live da aplicação para melhor visualização, e para isso utilizei a Vercel.
 
-Segue link da aplicação: <a href="" title="Link para a aplicação" target="_blank"> Ticto Frontend Challenger </a>
+Segue link da aplicação: <a href="" title="Link para a aplicação" target="_blank"> SenseData Frontend Challenger </a>
