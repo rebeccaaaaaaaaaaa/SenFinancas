@@ -54,14 +54,27 @@ export const GlobalContext = createContext({} as GlobalContextData);
 
 // create a provider for share data between components
 export function GlobalProvider({ children }: GlobalProviderProps) {
-  const storedTransactions = localStorage.getItem("transactions");
-  const initialTransactions: Transaction[] = storedTransactions
-    ? JSON.parse(storedTransactions)
-    : [];
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+ 
+  useEffect(() => {
+    const storedTransactions = localStorage.getItem("transactions");
+    const initialData: Transaction[] = [
+      {
+        id: "1",
+        title: "Transação de exemplo",
+        amount: "100",
+        type: "deposit",
+        category: "Categoria Genérica",
+        date: "29/12/2022",
+      }
+    ];
 
-  const [transactions, setTransactions] = useState<Transaction[]>(
-    initialTransactions
-  );
+    const initialTransactions: Transaction[] = storedTransactions
+      ? JSON.parse(storedTransactions)
+      : initialData;
+
+    setTransactions(initialTransactions);
+  }, []); // Executado apenas quando o componente é montado
 
   function addTransaction(newTransaction: Transaction) {
     const updatedTransactions = [...transactions, newTransaction];
