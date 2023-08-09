@@ -27,6 +27,13 @@ interface GlobalContextData {
   totalIncome: number;
   totalOutcome: number;
   total: number;
+  
+  filterType: string;
+  setFilterType: React.Dispatch<React.SetStateAction<string>>;
+  filterCategory: string;
+  setFilterCategory: React.Dispatch<React.SetStateAction<string>>;
+  filteredTransactions: Transaction[];
+  uniqueCategories: string[];
 }
 
 interface Transaction {
@@ -69,6 +76,20 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
     setTransactions(updatedTransactions);
     localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
   }
+
+  // filters
+  const [filterType, setFilterType] = useState("all");
+  const [filterCategory, setFilterCategory] = useState("all"); // Estado para controlar a categoria do filtro
+
+  const filteredTransactions = transactions.filter((item: { type: string; category: string; }) => {
+    if (filterType === "all" || item.type === filterType) {
+      // Se o tipo corresponder ou se todos forem selecionados, verifique a categoria
+      return filterCategory === "all" || item.category === filterCategory;
+    }
+    return false;
+  });
+
+  const uniqueCategories = [...new Set(transactions.map((item: { category: string }) => item.category))]; // Obtém categorias únicas
 
   // modal
   const [showModal, setShowModal] = useState(false);
@@ -165,6 +186,12 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
         totalIncome,
         totalOutcome,
         total,
+        filterType,
+        setFilterType,
+        filterCategory,
+        setFilterCategory,
+        filteredTransactions,
+        uniqueCategories,
       }}
     >
       {children}
