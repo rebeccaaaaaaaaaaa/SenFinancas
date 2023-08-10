@@ -44,7 +44,7 @@
 
 # Preview
 
-<img src="https://raw.githubusercontent.com/rebeccaaaaaaaaaaa/SenFinancas/main/public/desktop.png" alt="Preview da aplicação"/>
+<img src="https://raw.githubusercontent.com/rebeccaaaaaaaaaaa/SenFinancas/main/public/preview.gif" alt="Preview da aplicação"/>
 
 # Aplicação Live
 
