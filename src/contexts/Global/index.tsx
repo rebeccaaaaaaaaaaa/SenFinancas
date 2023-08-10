@@ -27,14 +27,22 @@ interface GlobalContextData {
   totalIncome: number;
   totalOutcome: number;
   total: number;
-  
+
   filterType: string;
   setFilterType: React.Dispatch<React.SetStateAction<string>>;
   filterCategory: string;
   setFilterCategory: React.Dispatch<React.SetStateAction<string>>;
   filteredTransactions: Transaction[];
   uniqueCategories: string[];
-  editTransaction: (id: string, newTitle: string, newCategory: string) => void
+
+  editTransaction: (id: string, newTitle: string, newCategory: string) => void;
+  handleEditSubmit: () => void;
+  handleEditClick: (transaction: Transaction) => void
+  editedTransaction: Transaction | null
+  editedTitle: string
+  editedCategory: string
+  setEditedTitle: React.Dispatch<React.SetStateAction<string>>
+  setEditedCategory: React.Dispatch<React.SetStateAction<string>>
 }
 
 interface Transaction {
@@ -56,7 +64,7 @@ export const GlobalContext = createContext({} as GlobalContextData);
 // create a provider for share data between components
 export function GlobalProvider({ children }: GlobalProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
- 
+
   useEffect(() => {
     const storedTransactions = localStorage.getItem("transactions");
     const initialData: Transaction[] = [
@@ -67,7 +75,7 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
         type: "deposit",
         category: "Categoria Genérica",
         date: "29/12/2022",
-      }
+      },
     ];
 
     const initialTransactions: Transaction[] = storedTransactions
@@ -107,20 +115,46 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
     localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
   }
 
+  // edit
+
+  // State to track edited transaction
+  const [editedTransaction, setEditedTransaction] =
+    useState<Transaction | null>(null);
+
+  // State for temporary input values
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedCategory, setEditedCategory] = useState("");
+
+  const handleEditClick = (transaction: Transaction) => {
+    setEditedTransaction(transaction);
+    setEditedTitle(transaction.title); // Initialize the input with the current title
+    setEditedCategory(transaction.category); // Initialize the input with the current category
+  };
+
+  const handleEditSubmit = () => {
+    if (editedTransaction) {
+      editTransaction(editedTransaction.id, editedTitle, editedCategory);
+      setEditedTransaction(null);
+    }
+  };
 
   // filters
   const [filterType, setFilterType] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all"); // Estado para controlar a categoria do filtro
 
-  const filteredTransactions = transactions.filter((item: { type: string; category: string; }) => {
-    if (filterType === "all" || item.type === filterType) {
-      // Se o tipo corresponder ou se todos forem selecionados, verifique a categoria
-      return filterCategory === "all" || item.category === filterCategory;
+  const filteredTransactions = transactions.filter(
+    (item: { type: string; category: string }) => {
+      if (filterType === "all" || item.type === filterType) {
+        // Se o tipo corresponder ou se todos forem selecionados, verifique a categoria
+        return filterCategory === "all" || item.category === filterCategory;
+      }
+      return false;
     }
-    return false;
-  });
+  );
 
-  const uniqueCategories = [...new Set(transactions.map((item: { category: string }) => item.category))]; // Obtém categorias únicas
+  const uniqueCategories = [
+    ...new Set(transactions.map((item: { category: string }) => item.category)),
+  ]; // Obtém categorias únicas
 
   // modal
   const [showModal, setShowModal] = useState(false);
@@ -223,7 +257,14 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
         setFilterCategory,
         filteredTransactions,
         uniqueCategories,
-        editTransaction
+        editTransaction,
+        editedCategory,
+        editedTitle,
+        editedTransaction,
+        handleEditClick,
+        handleEditSubmit,
+        setEditedCategory,
+        setEditedTitle
       }}
     >
       {children}

@@ -14,28 +14,16 @@ interface Transaction {
 }
 
 export function TableContent() {
-  const { removeTransaction, filteredTransactions,editTransaction } = useGlobal();
-    // State to track edited transaction
-    const [editedTransaction, setEditedTransaction] = useState<Transaction | null>(null);
-  
-    // State for temporary input values
-    const [editedTitle, setEditedTitle] = useState("");
-    const [editedCategory, setEditedCategory] = useState("");
-  
-    const handleEditClick = (transaction: Transaction) => {
-      setEditedTransaction(transaction);
-      setEditedTitle(transaction.title); // Initialize the input with the current title
-      setEditedCategory(transaction.category); // Initialize the input with the current category
-    };
-    
-  
-    const handleEditSubmit = () => {
-      if (editedTransaction) {
-        console.log('SAlvar edição')
-        editTransaction(editedTransaction.id, editedTitle, editedCategory);
-        setEditedTransaction(null);
-      }
-    };
+  const { removeTransaction, 
+          filteredTransactions, 
+          editedTransaction, 
+          editedTitle, 
+          editedCategory,
+          setEditedTitle,
+          setEditedCategory,
+          handleEditSubmit,
+          handleEditClick
+  } = useGlobal();
   return (
     <div className={styles.container}>
       <Filters />
