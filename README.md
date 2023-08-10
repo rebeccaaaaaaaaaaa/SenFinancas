@@ -4,6 +4,22 @@
 - Entre na pasta do projeto e no terminal, seja no do sistema ou do seu editor de código, digite npm install para instalar as dependências
 - Ao finalizar a instalação, digite npm run dev para rodar localmente o projeto
 
+# Itens obrigatórios para a aplicação 
+
+- [x] Adicionar, editar e excluir uma transação; 
+- [x] Visualizar as transações em uma tabela; 
+- [x] Visualizar o total das transações de entrada, saída e o total da conta (entradas - saídas); 
+- [x] Os filtros citados devem estar funcionando; 
+- [x] Persistir os dados (salvar a lista de transações no localStorage ou algum banco de dados); 
+- [x] Usar ContextAPI; 
+
+# Itens opcionais 
+- [ ] Realizar testes unitários; 
+- [ ] Mais filtros; 
+- [ ] Mostrar subtotal de entradas / saídas de acordo com o filtro de categoria. 
+- [x] A entrega deve ser feita em um repositório público do GitHub e um link com a aplicação rodando. 
+
+
 # Desafios encontrados
 
 - Tive um problema com o uso de hooks no lado do servidor na versão na qual iniciei o projeto com o
