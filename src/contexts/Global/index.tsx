@@ -34,6 +34,7 @@ interface GlobalContextData {
   setFilterCategory: React.Dispatch<React.SetStateAction<string>>;
   filteredTransactions: Transaction[];
   uniqueCategories: string[];
+  editTransaction: (id: string, newTitle: string, newCategory: string) => void
 }
 
 interface Transaction {
@@ -89,6 +90,23 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
     setTransactions(updatedTransactions);
     localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
   }
+
+  function editTransaction(id: string, newTitle: string, newCategory: string) {
+    const updatedTransactions = transactions.map((transaction) => {
+      if (transaction.id === id) {
+        return {
+          ...transaction,
+          title: newTitle,
+          category: newCategory,
+        };
+      }
+      return transaction;
+    });
+
+    setTransactions(updatedTransactions);
+    localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
+  }
+
 
   // filters
   const [filterType, setFilterType] = useState("all");
@@ -205,6 +223,7 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
         setFilterCategory,
         filteredTransactions,
         uniqueCategories,
+        editTransaction
       }}
     >
       {children}
