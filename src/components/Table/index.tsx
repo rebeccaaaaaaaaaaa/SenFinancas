@@ -2,16 +2,8 @@
 "use client";
 import { Filters } from "../Filters/index,";
 import { useGlobal } from "@/src/hooks/useGlobal";
-import styles from "./styles.module.scss";
 import { EmptyTableWarning } from "../EmptyTable";
-import { useState } from "react";
-import { UUID } from "crypto";
-
-interface Transaction {
-  id: UUID
-  title: string
-  category: string
-}
+import styles from "./styles.module.scss";
 
 export function TableContent() {
   const { removeTransaction, 
@@ -22,7 +14,9 @@ export function TableContent() {
           setEditedTitle,
           setEditedCategory,
           handleEditSubmit,
-          handleEditClick
+          handleEditClick,
+          editedAmount,
+          setEditedAmount
   } = useGlobal();
   return (
     <div className={styles.container}>
@@ -62,7 +56,18 @@ export function TableContent() {
                       item.type === "deposit" ? styles.deposit : styles.withdraw
                     }
                   >
-                    R$ {item.amount}
+                   {/* Show input field when transaction is being edited */}
+                   {editedTransaction && editedTransaction.id === item.id ? (
+                        <input
+                          type="text"
+                          value={editedAmount}
+                          onChange={(e) => setEditedAmount(e.target.value)}
+                        />
+                      ) : (
+                        <> 
+                         R$ {item.amount}
+                        </>
+                      )}
                   </td>
                   <td>
                       {/* Show input field when transaction is being edited */}

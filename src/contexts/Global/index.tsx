@@ -35,7 +35,7 @@ interface GlobalContextData {
   filteredTransactions: Transaction[];
   uniqueCategories: string[];
 
-  editTransaction: (id: string, newTitle: string, newCategory: string) => void;
+  editTransaction: (id: string, newTitle: string, newCategory: string, newAmount: string) => void;
   handleEditSubmit: () => void;
   handleEditClick: (transaction: Transaction) => void
   editedTransaction: Transaction | null
@@ -43,6 +43,8 @@ interface GlobalContextData {
   editedCategory: string
   setEditedTitle: React.Dispatch<React.SetStateAction<string>>
   setEditedCategory: React.Dispatch<React.SetStateAction<string>>
+  editedAmount: string
+  setEditedAmount: React.Dispatch<React.SetStateAction<string>>
 }
 
 interface Transaction {
@@ -99,13 +101,14 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
     localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
   }
 
-  function editTransaction(id: string, newTitle: string, newCategory: string) {
+  function editTransaction(id: string, newTitle: string, newCategory: string, newAmount: string) {
     const updatedTransactions = transactions.map((transaction) => {
       if (transaction.id === id) {
         return {
           ...transaction,
           title: newTitle,
           category: newCategory,
+          amount: newAmount
         };
       }
       return transaction;
@@ -124,16 +127,18 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
   // State for temporary input values
   const [editedTitle, setEditedTitle] = useState("");
   const [editedCategory, setEditedCategory] = useState("");
+  const [editedAmount, setEditedAmount] = useState("");
 
   const handleEditClick = (transaction: Transaction) => {
     setEditedTransaction(transaction);
     setEditedTitle(transaction.title); // Initialize the input with the current title
     setEditedCategory(transaction.category); // Initialize the input with the current category
+    setEditedAmount(transaction.amount)
   };
 
   const handleEditSubmit = () => {
     if (editedTransaction) {
-      editTransaction(editedTransaction.id, editedTitle, editedCategory);
+      editTransaction(editedTransaction.id, editedTitle, editedCategory, editedAmount);
       setEditedTransaction(null);
     }
   };
@@ -264,7 +269,9 @@ export function GlobalProvider({ children }: GlobalProviderProps) {
         handleEditClick,
         handleEditSubmit,
         setEditedCategory,
-        setEditedTitle
+        setEditedTitle,
+        editedAmount,
+        setEditedAmount
       }}
     >
       {children}
