@@ -4,6 +4,12 @@
 - Entre na pasta do projeto e no terminal, seja no do sistema ou do seu editor de código, digite npm install para instalar as dependências
 - Ao finalizar a instalação, digite npm run dev para rodar localmente o projeto
 
+# Layout 
+
+- Para a criação do layout, me baseiei em um layout disponivel no Figma Community disponibilizado pela Rocketseeat
+
+<a href="https://www.figma.com/community/file/1138814493269096792/DT-Money"> Layout base </a>
+
 # Itens obrigatórios para a aplicação 
 
 - [x] Adicionar, editar e excluir uma transação; 
